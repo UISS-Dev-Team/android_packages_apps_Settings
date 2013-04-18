@@ -242,4 +242,10 @@
     <!-- Led light -->
     <string name="led_light_settings_title">Led灯设置</string>
 
+    <!-- App sidebar -->
+    <string name="app_sidebar_title">应用侧边栏</string>
+    <string name="app_sidebar_enable_title">开启侧边栏</string>
+    <string name="app_sidebar_sort_type_title">侧边栏排序顺序</string>
+    <string name="app_sidebar_settings_title">侧边栏设置</string>
+
 </resources>
