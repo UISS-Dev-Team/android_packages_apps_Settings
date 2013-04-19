@@ -253,5 +253,6 @@
     <string name="app_sidebar_sort_type_title">Sidebar sort order</string>
     <string name="app_sidebar_settings_title">App sidebar settings</string>
     <string name="app_sidebar_transparency_title">Sidebar transparency</string>
+    <string name="app_sidebar_size_title">Sidebar size</string>
 
 </resources>
