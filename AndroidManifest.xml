@@ -1681,8 +1681,6 @@
 
         <activity android:name=".cyanogenmod.Quicksettings.QuickSettingsTilesStyle" />
 
-        <activity android:name=".cyanogenmod.ExcludedAppsActivity" />
-
         <activity android:name=".profiles.NFCProfile"
                 android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
