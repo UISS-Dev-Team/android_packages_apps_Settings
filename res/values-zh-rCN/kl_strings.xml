@@ -264,6 +264,13 @@
     <string name="tab_position_title">标签位置</string>
     <string name="tab_position_summary">显示的标签，在屏幕的一侧上的顶端、中间或底部。</string>
     <string name="tab_size_title">标签大小</string>
-    <string name="tab_size_summary">更改“可见”选项条的大小。</string>
+    <string name="tab_size_summary">更改可见选项条的大小。</string>
+    <string name="trigger_category">触发区</string>
+    <string name="trigger_width_title">触发宽度</string>
+    <string name="trigger_width_summary">调整触发区域的宽度</string>
+    <string name="trigger_top_title">触发的位置</string>
+    <string name="trigger_top_summary">调整触发区域</string>
+    <string name="trigger_bottom_title">触发的高度</string>
+    <string name="trigger_bottom_summary">调整触发区域的高度</string>
 
 </resources>
