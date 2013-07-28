@@ -26,6 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Notification;
+import android.app.Notification.BigTextStyle;
+import android.app.Notification.Builder;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -35,7 +37,9 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -43,9 +47,13 @@ import java.util.List;
 
 public class PushServiceManager extends BroadcastReceiver {
 
-    private static final String PUSH_FIRST_BOOT = "pref_push_first_boot";
-    private static final String PUSH_CHECK_LOCK = "pref_push_check_lock";
-    private static final String TAG = PushServiceManager.class.getSimpleName();
+    protected static final String TAG = PushServiceManager.class.getSimpleName();
+
+    protected static final String PUSH_PREF = "mokee_push";
+
+    protected static final String PUSH_FIRST_BOOT = "pref_push_first_boot";
+
+    protected static final String PUSH_CHECK_LOCK = "pref_push_check_lock";
 
     @Override
     public void onReceive(Context ctx, Intent intent) {
@@ -61,7 +69,7 @@ public class PushServiceManager extends BroadcastReceiver {
                     String appid = "";
                     String channelid = "";
                     String userid = "";
-                    SharedPreferences prefs = ctx.getSharedPreferences("MKPush", 0);
+                    SharedPreferences prefs = ctx.getSharedPreferences(PUSH_PREF, 0);
                     try {
                         JSONObject jsonContent = new JSONObject(content);
                         JSONObject params = jsonContent.getJSONObject("response_params");
@@ -81,72 +89,85 @@ public class PushServiceManager extends BroadcastReceiver {
                     PushManager.setTags(ctx.getApplicationContext(), tags);
                 } else {
                     if (errorCode == 30607) {
-                        Log.d("Bind Fail", "update channel token-----!");
+                        Log.d(TAG, "Bind Fail: update channel token!");
                     }
                 }
             }
         } else if (action.equals(PushConstants.ACTION_MESSAGE)) {
+            Log.d(TAG, "Receive message");
             // 获取消息内容
-            String message = intent.getExtras().getString(PushConstants.EXTRA_PUSH_MESSAGE_STRING);
-            if (message == null)
-                return;
-            String device = intent.getExtras().getString("device");
-            String modType = intent.getExtras().getString("type");
-            String url = intent.getExtras().getString("url");
-            String title = intent.getExtras().getString("title");
-            int msg_id = Integer.valueOf(intent.getExtras().getString("id"));
+            Bundle bundle = intent.getExtras();
+            String message = bundle.getString(PushConstants.EXTRA_PUSH_MESSAGE_STRING);
+            String device = PushUtils.getString(bundle, "device");
+            String modType = PushUtils.getString(bundle, "type");
+            String url = PushUtils.getString(bundle, "url");
+            String title = PushUtils.getString(bundle, "title");
+            String newVersion = PushUtils.getString(bundle, "version");
+            String HASHID = PushUtils.getString(bundle, "hashid");
+            String IMEI = PushUtils.getString(bundle, "imei");
+            int msg_id = Integer.valueOf(PushUtils.getString(bundle, "id"));
             String mod_device = Utilities.getDevice().toLowerCase();
             String mod_version = Utilities.getModVersion().toLowerCase();
-            
-            if (allowPush(device, mod_device, 1) && allowPush(modType, mod_version, 0)
-                    || device.equals("all") && modType.equals("all")
-                    || device.equals("all") && allowPush(modType, mod_version, 0)
-                    || allowPush(device, mod_device, 1) && modType.equals("all")) {
-                switch (msg_id) {
-                    case 0:
-                        promptUser(ctx, url, ctx.getString(R.string.mokee_push_newversion_title),
-                                ctx.getString(R.string.mokee_push_newversion_msg));
-                        break;
-                    default:
-                        promptUser(ctx, url, title, message);
-                        break;
-                }
+
+            switch (msg_id) {
+                case 0:
+                case 1:
+                    if (PushUtils.allowPush(device, mod_device, 1)
+                            && PushUtils.allowPush(modType, mod_version, 0)
+                            || device.equals("all") && modType.equals("all")
+                            || device.equals("all") && PushUtils.allowPush(modType, mod_version, 0)
+                            || PushUtils.allowPush(device, mod_device, 1) && modType.equals("all")) {
+                        switch (msg_id) {
+                            case 0:
+                                if (!mod_version.contains(newVersion))
+                                    promptUser(ctx, url,
+                                            ctx.getString(R.string.mokee_push_newversion_title),
+                                            ctx.getString(R.string.mokee_push_newversion_msg), msg_id);
+
+                                break;
+                            case 1:
+                                String currentCountry = ctx.getResources().getConfiguration().locale
+                                        .getCountry();
+                                if (currentCountry.equals("CN") || currentCountry.equals("TW")) {
+                                    promptUser(ctx, url, title, message, msg_id);
+                                }
+                                break;
+
+                        }
+                    }
+                    break;
+                case 2:
+                    if (HASHID.equals(Utilities.getUniqueID(ctx))) {
+                        promptUser(ctx, url, title, message, msg_id);
+                    }
+                    break;
+                case 3:
+                    if (IMEI.equals(Utilities.getIMEI(ctx))) {
+                        promptUser(ctx, url, title, message, msg_id);
+                    }
+                    break;
             }
 
         } else {
+            Log.d(TAG, "Start service");
             initPushService(ctx);
         }
     }
-    
-    private boolean allowPush(String str1, String str2 , int mode) {
-        String [] strs = str1.split(",");
-        for(int i = 0; i< strs.length; i++)
-        {
-            switch(mode)
-            {
-                case 1:
-                    if(strs[i].equals(str2))
-                        return true;
-                default:
-                    if(str2.contains(strs[i]))
-                        return true;
-            }
-            
-        }
-        return false;
-    }
 
-    private void promptUser(Context context, String url, String title, String message) {
+    private void promptUser(Context context, String url, String title, String message, int id) {
         NotificationManager nm = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         Uri uri = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         PendingIntent pendintIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        Notification.Builder builder = new Notification.Builder(context)
+
+        BigTextStyle noti = new Notification.BigTextStyle(new Notification.Builder(context)
                 .setSmallIcon(R.drawable.ic_mokee_push).setAutoCancel(true).setTicker(title)
                 .setContentIntent(pendintIntent).setWhen(0).setContentTitle(title)
-                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS).setOngoing(true).setContentText(message);
-        nm.notify(1, builder.getNotification());
+                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS)
+                .setOngoing(true).setContentText(message)).bigText(message);
+
+        nm.notify(id, noti.build());
     }
 
     public static void initPushService(final Context ctx) {
@@ -154,21 +175,22 @@ public class PushServiceManager extends BroadcastReceiver {
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-            final SharedPreferences prefs = ctx.getSharedPreferences("MKPush", 0);
+            final SharedPreferences prefs = ctx.getSharedPreferences(PUSH_PREF, 0);
             boolean checklock = prefs.getBoolean(PUSH_CHECK_LOCK, false);
             boolean firstBoot = prefs.getBoolean(PUSH_FIRST_BOOT, true);
             if (firstBoot && !checklock) {
                 prefs.edit().putBoolean(PUSH_CHECK_LOCK, true).apply();
                 PushManager.startWork(ctx.getApplicationContext(),
-                        PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(ctx, "api_key"));
-                new Handler().postDelayed(new Runnable(){
+                        PushConstants.LOGIN_TYPE_API_KEY, PushUtils.getMetaValue(ctx, "api_key"));
+                new Handler().postDelayed(new Runnable() {
 
                     @Override
                     public void run() {
                         prefs.edit().putBoolean(PUSH_CHECK_LOCK, false).apply();
-                    }}, 1000 * 30);
+                    }
+                }, 1000 * 30);
             } else {
-                if(!PushManager.isPushEnabled(ctx))
+                if (!PushManager.isPushEnabled(ctx))
                 {
                     PushManager.resumeWork(ctx);
                 }
