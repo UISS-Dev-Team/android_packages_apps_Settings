@@ -452,7 +452,7 @@ public class Settings extends PreferenceActivity
                 launcherIntent.addCategory(Intent.CATEGORY_DEFAULT);
 
                 Intent launcherPreferencesIntent = new Intent(Intent.ACTION_MAIN);
-                launcherPreferencesIntent.addCategory("com.mokee.category.LAUNCHER_PREFERENCES");
+                launcherPreferencesIntent.addCategory("com.kylin.category.LAUNCHER_PREFERENCES");
 
                 ActivityInfo defaultLauncher = getPackageManager().resolveActivity(launcherIntent, PackageManager.MATCH_DEFAULT_ONLY).activityInfo;
                 launcherPreferencesIntent.setPackage(defaultLauncher.packageName);

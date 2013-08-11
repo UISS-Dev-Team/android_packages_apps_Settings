@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The MoKee OpenSource Project
+ * Copyright (C) 2012 The KyLin OS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.settings.mkstats;
+package com.android.settings.klstats;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

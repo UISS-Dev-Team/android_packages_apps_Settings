@@ -76,7 +76,7 @@
     <string name="notification_convert_sound_to_vibration_title">Trillen bij melding</string>
     <string name="notification_convert_sound_to_vibration_summary">Trillen bij melding in trilstand, ongeacht de app-instelling</string>
     <string name="device_hostname">Hostnaam apparaat</string>
-    <string name="mod_version">MoKee-versie</string>
+    <string name="mod_version">KyLinOS-versie</string>
     <string name="mod_version_default">Onbekend</string>
     <string name="build_date">Build-datum</string>
     <string name="cpu_info">CPU</string>
@@ -463,7 +463,7 @@ Let op:\nAangezien het beginvolume hoger is ingesteld dan het beltoonvolume, wor
     <string name="power_menu_airplane_title">Vliegmodus</string>
     <string name="power_menu_user_title">Gebruiker wisselen</string>
     <string name="power_menu_sound_title">Geluidspaneel</string>
-    <string name="cmupdate_settings_title">MoKee OpenSource-updates</string>
+    <string name="cmupdate_settings_title">KyLinOS-updates</string>
     <string name="cmupdate_settings_summary">Controleren op updates</string>
     <string name="advanced_settings_title">Geavanceerd</string>
     <string name="ime_switcher_notify">Invoermethodemelding</string>
@@ -602,7 +602,7 @@ Let op:\nAangezien het beginvolume hoger is ingesteld dan het beltoonvolume, wor
     <string name="safe_headset_volume_title">Veilig headsetvolume</string>
     <string name="safe_headset_volume_summary">Hoog volume voorkomen als de headset voor het eerst wordt aangesloten</string>
     <string name="cyanogenmod_waiver_title">Afstandsverklaring</string>
-    <string name="cyanogenmod_waiver_body">Het wijzigen van deze instelling kan in overtreding zijn met de regelgeving in uw staat/land.\n\nDoor te tikken op \'OK\' erkent u deze waarschuwing en doet u afstand van en vrijwaart u MoKee OpenSource en/of haar bijdragers van alle wettelijke verplichtingen</string>
+    <string name="cyanogenmod_waiver_body">Het wijzigen van deze instelling kan in overtreding zijn met de regelgeving in uw staat/land.\n\nDoor te tikken op \'OK\' erkent u deze waarschuwing en doet u afstand van en vrijwaart u KyLinOS en/of haar bijdragers van alle wettelijke verplichtingen</string>
     <string name="light_sensor_current_value">Huidige lichtsensorwaarde: <xliff:g id="light_level">%d</xliff:g> lux</string>
     <string name="auto_brightness_dialog_title">Autom. helderheidsstanden</string>
     <string name="auto_brightness_level_format"><xliff:g id="level">%1$d</xliff:g> lux</string>

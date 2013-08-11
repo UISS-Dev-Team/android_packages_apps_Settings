@@ -16,10 +16,6 @@
 -keep class com.android.settings.cyanogenmod.superuser.**
 -keep class com.android.settings.cyanogenmod.privacyguard.**
 
--dontwarn com.baidu.android.common.**
--dontwarn com.baidu.android.pushservice.**
--dontwarn android.content.pm.**
-
 # Keep click responders
 -keepclassmembers class com.android.settings.inputmethod.UserDictionaryAddWordActivity {
   *** onClick*(...);

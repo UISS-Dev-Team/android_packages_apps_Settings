@@ -87,13 +87,7 @@
             </PreferenceScreen>
 
         </PreferenceScreen>
-
-        <PreferenceScreen
-                android:key="developers"
-                android:title="@string/settings_developers_activity_title">
-            <intent android:action="android.settings.DEVELOPERS" />
-        </PreferenceScreen>
-
+        
         <PreferenceScreen
                 android:key="safetylegal"
                 android:title="@string/settings_safetylegal_title">
@@ -159,12 +153,6 @@
                 style="?android:preferenceInformationStyle"
                 android:title="@string/mod_version"
                 android:summary="@string/mod_version_default" />
-
-        <!-- Mod Support -->
-        <Preference android:key="mod_support"
-                style="?android:preferenceInformationStyle"
-                android:title="@string/mod_support"
-                android:summary="@string/mod_support_default" />
 
         <!-- Mod build date -->
         <Preference android:key="build_date"
