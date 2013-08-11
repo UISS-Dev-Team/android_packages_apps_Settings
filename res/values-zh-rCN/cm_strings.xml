@@ -379,6 +379,7 @@
     <string name="hardware_keys_action_search">搜索助手</string>
     <string name="hardware_keys_action_voice_search">语音搜索</string>
     <string name="hardware_keys_action_in_app_search">程序内搜索</string>
+    <string name="hardware_keys_action_sleep">锁屏</string>
     <string name="swap_volume_buttons_title">交换音量键</string>
     <string name="swap_volume_buttons_summary">旋转屏幕时交换音量键的布局</string>
     <string name="navigation_bar_title">按键与布局</string>
@@ -478,8 +479,8 @@
     <string name="status_bar_notif_count_title">显示通知数量</string>
     <string name="status_bar_notif_count_summary">显示有多少条正在等候中的通知</string>
     <string name="display_category_wakeup_options_title">唤醒选项</string>
-    <string name="pref_home_wake_title">主页键唤醒</string>
-    <string name="pref_home_wake_summary">使用主页键唤醒设备</string>
+    <string name="pref_home_wake_title">Home 键唤醒</string>
+    <string name="pref_home_wake_summary">使用 Home 键唤醒设备</string>
     <string name="pref_volume_wake_title">音量键唤醒</string>
     <string name="pref_volume_wake_summary">使用音量键唤醒设备</string>
     <string name="adb_notify">USB 调试通知</string>
