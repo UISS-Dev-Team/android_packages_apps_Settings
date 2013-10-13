@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The KyLin OS Project
+<!-- Copyright (C) 2012-2013 The OpenSource Project Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -241,4 +241,5 @@
     <!-- Auto-Hide Status Bar -->
     <string name="auto_hide_statusbar">自动隐藏状态栏</string>
     <string name="auto_hide_statusbar_summary">没有通知时自动隐藏状态栏</string>
+
 </resources>

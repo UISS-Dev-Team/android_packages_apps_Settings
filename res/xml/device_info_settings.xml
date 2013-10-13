@@ -87,7 +87,7 @@
             </PreferenceScreen>
 
         </PreferenceScreen>
-        
+
         <PreferenceScreen
                 android:key="safetylegal"
                 android:title="@string/settings_safetylegal_title">

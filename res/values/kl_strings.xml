@@ -15,10 +15,6 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!-- About version and support -->
-    <string name="mod_support" formatted="false">Community support</string>
-    <string name="mod_support_default" formatted="false">Unknown</string>
-
     <!-- Navigation Bar -->
     <string name="navigation_bar_edit_title">Button customization</string>
     <string name="navigation_bar_edit_summary">Edit button layout</string>
@@ -177,11 +173,6 @@
     <!-- Permissions Management -->
     <string name="permissions_settings_title">Permissions management</string>
 
-    <!-- Developers -->
-    <string name="settings_developers_activity_title">Developers</string>
-    <string name="settings_developers_activity_loading">Loading\u2026</string>
-    <string name="settings_developers_activity_unreachable">You don\'t have a data connection. To view this information now, go to %s from any computer connected to the Internet.</string>
-
     <!-- MoKee Push -->
     <string name="mokee_push_newversion_title">Found a new version of MoKee OpenSource</string>
     <string name="mokee_push_newversion_msg">A new version is ready, click to view details!</string>
@@ -255,4 +246,5 @@
     <!-- Auto-Hide Status Bar -->
     <string name="auto_hide_statusbar">Auto hide statusbar</string>
     <string name="auto_hide_statusbar_summary">Statusbar hides itself when there are no notifications</string>
+
 </resources>
