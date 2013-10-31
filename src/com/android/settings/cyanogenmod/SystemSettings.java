@@ -36,7 +36,6 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
-import android.text.Spannable;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.IWindowManager;
@@ -53,7 +52,6 @@ import com.android.settings.widget.SeekBarPreference;
 import com.android.settings.widget.ColorPickerPreference;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.regex.Matcher;
@@ -82,7 +80,6 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
     private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
     private static final String KEY_NAVBAR_ALPHA = "navigation_bar_alpha";
     private static final String KEY_NAVBAR_COLOR = "nav_bar_color";
-    private static final String KEY_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
 
     private PreferenceScreen mNotificationPulse;
     private PreferenceScreen mBatteryPulse;
@@ -92,15 +89,13 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
     private CheckBoxPreference mFullscreenKeyboard;
     private CheckBoxPreference mMMSBreath;
     private CheckBoxPreference mMissedCallBreath;
-    private PreferenceScreen mCustomLabel;
     private ColorPickerPreference mNavigationBarColor;
     private boolean mIsPrimary;
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
-
-    private String mCustomLabelText;
+	
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -146,9 +141,6 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
 
         mNavigationBarColor = (ColorPickerPreference) findPreference(KEY_NAVBAR_COLOR);
         mNavigationBarColor.setOnPreferenceChangeListener(this);
-
-        mCustomLabel = (PreferenceScreen) findPreference(KEY_CUSTOM_CARRIER_LABEL);
-        updateCustomLabelTextSummary();
 
         PreferenceScreen prefScreen = getPreferenceScreen();
 
@@ -234,18 +226,6 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
         removePreferenceIfPackageNotInstalled(findPreference(KEY_LOCK_CLOCK));
     }
    
-    private void updateCustomLabelTextSummary() { 
-        mCustomLabelText = Settings.System.getString(getActivity().getContentResolver(),
-                Settings.System.CUSTOM_CARRIER_LABEL);
-    
-        if (mCustomLabelText == null || mCustomLabelText.length() == 0) {
-            mCustomLabel.setSummary(R.string.custom_carrier_label_notset);
-        } else {
-            mCustomLabel.setSummary(mCustomLabelText);
-      
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -408,35 +388,6 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
         if (preference.getKey().equals("transparency_dialog")) {
             openTransparencyDialog();
             return true;
-        } else if (preference.getKey().equals(KEY_CUSTOM_CARRIER_LABEL)) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-            alert.setTitle(R.string.custom_carrier_label_title);
-            alert.setMessage(R.string.custom_carrier_label_explain);
-
-            // Set an EditText view to get user input
-            final EditText input = new EditText(getActivity());
-            input.setText(mCustomLabelText != null ? mCustomLabelText : "");
-            alert.setView(input);
-            alert.setPositiveButton(getResources().getString(R.string.ok),
-                    new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    String value = ((Spannable) input.getText()).toString();
-                    Settings.System.putString(getActivity().getContentResolver(),
-                            Settings.System.CUSTOM_CARRIER_LABEL, value);
-                    updateCustomLabelTextSummary();
-                    Intent i = new Intent();
-                    i.setAction("com.android.settings.LABEL_CHANGED");
-                    getActivity().sendBroadcast(i);
-                }
-            });
-            alert.setNegativeButton(getResources().getString(R.string.cancel),
-                    new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    // Canceled.
-                }
-            });
-
-            alert.show();
         } 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
