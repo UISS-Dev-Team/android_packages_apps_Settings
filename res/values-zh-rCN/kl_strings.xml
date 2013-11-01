@@ -210,6 +210,7 @@
     <string name="title_tile_fcharge">快速充电</string>
 
     <!-- ListView animation -->
+    <string name="animation_settings_title">动画设置</string>
     <string name="listview_animation_title">列表动画</string>
     <string name="listview_off">关闭</string>
     <string name="listview_wave_left">波浪 (左)</string>
@@ -237,5 +238,8 @@
     <!-- Auto-Hide Status Bar -->
     <string name="auto_hide_statusbar">自动隐藏状态栏</string>
     <string name="auto_hide_statusbar_summary">没有通知时自动隐藏状态栏</string>
+
+    <!-- Led light -->
+    <string name="led_light_settings_title">Led灯设置</string>
 
 </resources>

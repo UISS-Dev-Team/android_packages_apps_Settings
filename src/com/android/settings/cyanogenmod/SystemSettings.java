@@ -68,7 +68,6 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
     private static final String KEY_NAVIGATION_BAR_HEIGHT = "navigation_bar_height";
     private static final String KEY_NAVIGATION_RING = "navigation_ring";
     private static final String KEY_NAVIGATION_BAR_CATEGORY = "navigation_bar_category";
-    private static final String KEY_LOCK_CLOCK = "lock_clock";
     private static final String KEY_STATUS_BAR = "status_bar";
     private static final String KEY_QUICK_SETTINGS = "quick_settings_panel";
     private static final String KEY_NOTIFICATION_DRAWER = "notification_drawer";
@@ -215,9 +214,6 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
         } catch (RemoteException e) {
             Log.e(TAG, "Error getting navigation bar status");
         }
-
-        // Don't display the lock clock preference if its not installed
-        removePreferenceIfPackageNotInstalled(findPreference(KEY_LOCK_CLOCK));
     }
    
     @Override

@@ -215,6 +215,7 @@
     <string name="title_tile_fcharge">Fast charge</string>
 
     <!-- ListView animation -->
+    <string name="animation_settings_title">Animation settings</string>
     <string name="listview_animation_title">ListView animation</string>
     <string name="listview_off">Off</string>
     <string name="listview_wave_left">Wave (left)</string>
@@ -242,5 +243,8 @@
     <!-- Auto-Hide Status Bar -->
     <string name="auto_hide_statusbar">Auto hide statusbar</string>
     <string name="auto_hide_statusbar_summary">Statusbar hides itself when there are no notifications</string>
+
+    <!-- Led light -->
+    <string name="led_light_settings_title">Led light settings</string>
 
 </resources>
