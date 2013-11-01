@@ -75,7 +75,6 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
     private static final String KEY_POWER_MENU = "power_menu";
     private static final String KEY_EXPANDED_DESKTOP = "expanded_desktop";
     private static final String KEY_EXPANDED_DESKTOP_NO_NAVBAR = "expanded_desktop_no_navbar";
-    private static final String KEY_FULLSCREEN_KEYBOARD = "fullscreen_keyboard";
     private static final String KEY_MMS_BREATH = "mms_breath";
     private static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
     private static final String KEY_NAVBAR_ALPHA = "navigation_bar_alpha";
@@ -86,7 +85,6 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
     private ListPreference mExpandedDesktopPref;
     private CheckBoxPreference mExpandedDesktopNoNavbarPref;
     private ListPreference mNavButtonsHeight;
-    private CheckBoxPreference mFullscreenKeyboard;
     private CheckBoxPreference mMMSBreath;
     private CheckBoxPreference mMissedCallBreath;
     private ColorPickerPreference mNavigationBarColor;
@@ -111,10 +109,6 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
         mNavButtonsHeight.setValue(String.valueOf(statusNavButtonsHeight));
         mNavButtonsHeight.setSummary(mNavButtonsHeight.getEntry());
 
-        mFullscreenKeyboard = (CheckBoxPreference) findPreference(KEY_FULLSCREEN_KEYBOARD);
-        mFullscreenKeyboard.setOnPreferenceChangeListener(this);
-        mFullscreenKeyboard.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.FULLSCREEN_KEYBOARD, 0) == 1);
         mMMSBreath = (CheckBoxPreference) findPreference(KEY_MMS_BREATH);
         mMMSBreath.setOnPreferenceChangeListener(this);
         mMMSBreath.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
@@ -264,10 +258,6 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
             int intHex = ColorPickerPreference.convertToColorInt(hex) & 0x00FFFFFF;
             Settings.System.putInt(resolver,
                     Settings.System.NAVIGATION_BAR_COLOR, intHex);
-            return true;
-        } else if (preference == mFullscreenKeyboard) {
-            Settings.System.putInt(resolver, Settings.System.FULLSCREEN_KEYBOARD,
-            		((Boolean) objValue).booleanValue() ? 1 : 0);
             return true;
         } else if (preference == mMMSBreath) {
             Settings.System.putInt(resolver, Settings.System.MMS_BREATH, 

@@ -154,12 +154,6 @@
             android:key="transparency_dialog"
             android:title="@string/transparency_dialog_title"
             android:summary="@string/transparency_dialog_summary" />
-
-        <CheckBoxPreference
-            android:key="fullscreen_keyboard"
-            android:title="@string/fullscreen_keyboard"
-            android:summary="@string/fullscreen_keyboard_summary"
-            android:defaultValue="false" />
             
         <CheckBoxPreference
             android:key="mms_breath"
