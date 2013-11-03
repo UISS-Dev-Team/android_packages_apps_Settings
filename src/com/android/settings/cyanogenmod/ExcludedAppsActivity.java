@@ -1,4 +1,4 @@
-package com.android.settings.chameleonos;
+package com.android.settings.cyanogenmod;
 
 import android.app.ListActivity;
 import android.content.ComponentName;
