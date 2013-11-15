@@ -62,6 +62,12 @@
         </PreferenceScreen>
 
         <CheckBoxPreference
+            android:key="expanded_hide_oncollapse"
+            android:title="@string/title_expanded_hide_oncollapse"
+            android:summary="@string/summary_expanded_hide_oncollapse"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
             android:key="expanded_hide_onchange"
             android:title="@string/title_expanded_hide_onchange"
             android:defaultValue="false" />
