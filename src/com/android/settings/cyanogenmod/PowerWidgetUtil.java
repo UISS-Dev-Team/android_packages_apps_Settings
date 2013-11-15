@@ -55,6 +55,7 @@ public class PowerWidgetUtil {
     public static final String BUTTON_MEDIA_NEXT = "toggleMediaNext";
     public static final String BUTTON_LTE = "toggleLte";
     public static final String BUTTON_WIMAX = "toggleWimax";
+    public static final String BUTTON_MEDIA_SCAN = "toggleMediaScan";
 
     public static final HashMap<String, ButtonInfo> BUTTONS = new HashMap<String, ButtonInfo>();
     static {
@@ -120,6 +121,9 @@ public class PowerWidgetUtil {
         BUTTONS.put(BUTTON_WIMAX, new PowerWidgetUtil.ButtonInfo(
                 BUTTON_WIMAX, R.string.title_toggle_wimax,
                 "com.android.systemui:drawable/stat_wimax_on"));
+        BUTTONS.put(BUTTON_MEDIA_SCAN, new PowerWidgetUtil.ButtonInfo(
+                BUTTON_MEDIA_SCAN, R.string.title_toggle_media_scan,
+                "com.android.systemui:drawable/stat_media_scan_on"));
     }
 
     private static final String BUTTON_DELIMITER = "|";
@@ -135,6 +139,7 @@ public class PowerWidgetUtil {
                             + BUTTON_DELIMITER + BUTTON_LOCKSCREEN
                             + BUTTON_DELIMITER + BUTTON_BRIGHTNESS
                             + BUTTON_DELIMITER + BUTTON_NETWORKMODE
+                            + BUTTON_DELIMITER + BUTTON_MEDIA_SCAN
                             + BUTTON_DELIMITER + BUTTON_SCREENTIMEOUT
                             + BUTTON_DELIMITER + BUTTON_SLEEP
                             + BUTTON_DELIMITER + BUTTON_WIFIAP
@@ -151,7 +156,13 @@ public class PowerWidgetUtil {
             if (WimaxHelper.isWimaxSupported(context)) {
                 buttons += BUTTON_DELIMITER + BUTTON_WIMAX;
             }
+            if(PhoneConstants.LTE_ON_CDMA_TRUE == TelephonyManager.getDefault().getLteOnCdmaMode() ||
+                    TelephonyManager.getDefault().getLteOnGsmMode() != 0) {
+                buttons += BUTTON_DELIMITER + BUTTON_LTE;
+            }
         }
+        // make sure any buttons we added are included
+        buttons = mergeInNewButtonString(buttons, BUTTONS_DEFAULT);
         return buttons;
     }
 
