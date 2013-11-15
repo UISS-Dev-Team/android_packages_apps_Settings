@@ -254,5 +254,18 @@
         <item>2.0</item>
     </string-array>
 
+    <!-- Toggles style -->
+    <string-array name="toggles_style_entries">
+        <item>None</item>
+        <item>Compact</item>
+        <item>Page</item>
+    </string-array>
+
+    <string-array name="toggles_style_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
 </resources>
 
